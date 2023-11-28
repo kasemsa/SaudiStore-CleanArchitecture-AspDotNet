@@ -1,0 +1,55 @@
+﻿@page "/categoryoverview"
+
+<h3>Product Category Overview</h3>
+
+<br />
+
+<p><input class="custom-checkbox" type="checkbox" id="includeHistory" @onchange="OnIncludeHistoryChanged"/>   Include past Products?</p>
+
+@if (Categories == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Category name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cat in Categories)
+            {
+                <tr>
+                    <td>@cat.Name </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <table class="nested-table ms-auto me-auto">
+                            <thead>
+                                <tr>
+                                    <th>Product name</th>
+                                    <th class="category-Product-header">CompanyName</th>
+                                    <th class="category-Product-header">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var ev in cat.Products)
+                                {
+                                    <tr>
+                                        <td class="Product-name">@ev.Name </td>
+                                        <td class="Product-artist">@ev.CompanyName</td>
+                                        <td class="Product-price">@ev.Price</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

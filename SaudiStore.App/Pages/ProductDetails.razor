@@ -1,0 +1,76 @@
+﻿@page "/Productdetails"
+@page "/Productdetails/{Productid}"
+
+<h1 class="page-title">Details for @ProductDetailViewModel.Name</h1>
+
+@Message
+
+<EditForm Model="@ProductDetailViewModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
+    <div class="row mb-3">
+        <label for="name" class="col-sm-3 form-label">Product name: </label>
+        <div class="col-sm-8">
+            <InputText id="name" class="form-control" @bind-Value="@ProductDetailViewModel.Name" placeholder="Enter Product name"></InputText>
+            <ValidationMessage For="@(() => ProductDetailViewModel.Name)" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="price" class="col-sm-3 form-label">Ticket price: </label>
+        <div class="col-sm-8">
+            <InputNumber id="price" class="form-control" @bind-Value="@ProductDetailViewModel.Price" placeholder="Enter price"></InputNumber>
+            <ValidationMessage For="@(() => ProductDetailViewModel.Price)" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="artist" class="col-sm-3 form-label">Company Name: </label>
+        <div class="col-sm-8">
+            <InputText id="artist" class="form-control" @bind-Value="@ProductDetailViewModel.CompanyName" placeholder="Enter CompanyName"></InputText>
+            <ValidationMessage For="@(() => ProductDetailViewModel.Artist)" />
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+        <label for="description" class="col-sm-3 form-label">Description: </label>
+        <div class="col-sm-8">
+            <InputTextArea id="description" class="form-control" @bind-Value="@ProductDetailViewModel.Description" placeholder="Enter description"></InputTextArea>
+            <ValidationMessage For="@(() => ProductDetailViewModel.Description)" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="imageurl" class="col-sm-3 form-label">Image: </label>
+        <div class="col-sm-8">
+            <InputText id="imageurl" class="form-control" @bind-Value="@ProductDetailViewModel.ImageUrl" placeholder="Enter image URL"></InputText>
+            <ValidationMessage For="@(() => ProductDetailViewModel.ImageUrl)" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="category" class="col-sm-3 form-label">Category: </label>
+        <div class="col-sm-8">
+            <InputSelect id="category" class="form-control" @bind-Value="@SelectedCategoryId">
+                @foreach (var category in Categories)
+                {
+                    <option value="@category.CategoryId">@category.Name</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
+
+    <button type="submit" class="submit-button">Save Product</button>
+
+</EditForm>
+
+@if (SelectedProductId != Guid.Empty)
+{
+    <p>
+        <button @onclick="DeleteProduct" class="delete-button mt-3">Delete Product</button>
+    </p>
+}
+<br />
+<p class="back-to-catalog mt-3"><img src="img/back-arrow.svg" /><a @onclick="@NavigateToOverview">Back to overview</a></p>
